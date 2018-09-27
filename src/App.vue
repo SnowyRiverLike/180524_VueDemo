@@ -1,30 +1,45 @@
 <template>
-  <div>
-    <HelloWorld/>
-    <hello-world/>
-    <img class="logo" src="./assets/logo.png" alt="logo">
+  <div class="todo-container">
+    <div class="todo-wrap">
+      <todo-header/>
+      <List :todos="todos"/>
+      <TodoFooter/>
+    </div>
   </div>
 </template>
 <script>
-  import HelloWorld from './components/HelloWorld.vue'
 
-  // 向外默认暴露一个配置对象: 前vm能写哪些它就能写哪些
+  import Header from './components/Header.vue'
+  import List from './components/List.vue'
+  import Footer from './components/Footer.vue'
   export default {
+
     data () {
       return {
-
+        todos: [
+          {title: '吃饭', complete: false},
+          {title: '睡觉', complete: true},
+          {title: '打豆豆', complete: false},
+        ]
       }
     },
-    // 注册组件标签
-    components: {
-      HelloWorld
-    }
 
+
+    components: {
+      TodoHeader: Header,
+      List,
+      TodoFooter: Footer
+    }
   }
 </script>
 <style>
-  .logo {
-    width: 200px;
-    height: 200px;
+  .todo-container {
+    width: 600px;
+    margin: 0 auto;
+  }
+  .todo-container .todo-wrap {
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
   }
 </style>
