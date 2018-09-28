@@ -1,19 +1,13 @@
 <template>
   <div class="todo-container">
     <div class="todo-wrap">
-      <todo-header @addTodo="addTodo"/>
-      <List :todos="todos"/>
-      <TodoFooter>
-        <input type="checkbox" v-model="isCheck" slot="left"/>
-        <span slot="middle">已完成{{completeSize}} / 全部{{todos.length}}</span>
-        <button slot="right" class="btn btn-danger" v-show="completeSize" @click="deleteComplete">清除已完成任务</button>
-      </TodoFooter>
+      <todo-header :addTodo="addTodo"/>
+      <List :todos="todos" :deleteTodo="deleteTodo"/>
+      <TodoFooter :todos="todos" :deleteComplete="deleteComplete" :selectAll="selectAll"/>
     </div>
   </div>
 </template>
 <script>
-
-  import PubSub from 'pubsub-js'
 
   import storageUtils from './utils/storageUtils'
   import Header from './components/Header.vue'
@@ -26,29 +20,6 @@
         // 读取localstorage中存储的todos数据作为初始值
         todos: storageUtils.readTodos()
       }
-    },
-
-    computed: {
-      completeSize () {
-        return this.todos.reduce((preTotal, todo) => preTotal + (todo.complete ? 1 : 0), 0)
-      },
-
-      isCheck: {
-        get () { // 计算得到一个决定是否勾选的boolean值
-          return this.todos.length===this.completeSize && this.completeSize>0
-        },
-
-        set (value) { // 用户操作勾选框时调用
-          this.selectAll(value)
-        }
-      }
-    },
-
-    mounted () {
-      // 订阅消息
-      PubSub.subscribe('deleteTodo', (msg, index) => {
-        this.deleteTodo(index)
-      })
     },
 
     methods: {
