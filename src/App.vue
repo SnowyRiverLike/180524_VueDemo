@@ -17,8 +17,12 @@
       <div class="col-xs-6">
         <div class="panel">
           <div class="panel-body">
-            <!--显示当前路由组件界面-->
-            <router-view msg="abc"/>
+            <!--当对应路由组件被跳转时, 对象保持活着(当前不显示其界面), 再请求它时不会再创建对象-->
+            <keep-alive>
+              <!--显示当前路由组件界面-->
+              <router-view msg="abc"/>
+            </keep-alive>
+
           </div>
         </div>
       </div>
