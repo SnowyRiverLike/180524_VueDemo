@@ -9,6 +9,7 @@
 </template>
 <script>
 
+  import storageUtils from './utils/storageUtils'
   import Header from './components/Header.vue'
   import List from './components/List.vue'
   import Footer from './components/Footer.vue'
@@ -16,11 +17,8 @@
 
     data () {
       return {
-        todos: [
-          {title: '吃饭', complete: false},
-          {title: '睡觉', complete: true},
-          {title: '打豆豆', complete: false},
-        ]
+        // 读取localstorage中存储的todos数据作为初始值
+        todos: storageUtils.readTodos()
       }
     },
 
@@ -46,6 +44,19 @@
       }
     },
 
+    watch: {
+      todos: {
+        deep: true, // 深度监视
+        /*handler: function (value) {
+          // 保存todos的json数据到localStorage
+          storageUtils.saveTodos(value)
+        }*/
+        handler: storageUtils.saveTodos
+        /*handler: function (todos) {
+          localStorage.setItem(TODOS_KEY, JSON.stringify(todos))
+        }*/
+      }
+    },
 
     components: {
       TodoHeader: Header,
