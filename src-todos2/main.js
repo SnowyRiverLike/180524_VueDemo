@@ -1,11 +1,8 @@
 import Vue from 'vue'
-import VueResource from 'vue-resource'
 
 import App from './App.vue'
 
-// 声明使用vue插件
-Vue.use(VueResource) // 内部给所有组件对象添加了一个属性$http: 通过它的get()/post()发ajax请求
-
+import './main.css'
 
 /* eslint-disable no-new */
 new Vue({
