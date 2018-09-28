@@ -1,12 +1,13 @@
 <template>
   <div>
-    About
+    <h2>About</h2>
+    <p>{{msg}}</p>
   </div>
 </template>
 <script>
   export default {
-    data() {
-      return {}
+    props: {
+      msg: String
     }
   }
 </script>
